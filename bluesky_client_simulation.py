@@ -1,13 +1,11 @@
 # Elias Dandouch
 # Summer SURF 2025 RESEARCH (06/26/25)
-# ------------------------------------
 # SIMULATION VERSION (no EPICS IOC required)
-# Uses ophyd.sim.Signal instead of EpicsSignal so plans can run offline.
 
 import datetime
 import csv
 from ophyd import Device, Component as Cpt
-from ophyd.sim import Signal  # <-- simulation-friendly signal type
+from ophyd.sim import Signal 
 from bluesky import RunEngine
 from bluesky.plan_stubs import mv, sleep
 from bluesky.callbacks.best_effort import BestEffortCallback
