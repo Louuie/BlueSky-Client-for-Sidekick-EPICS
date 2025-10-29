@@ -1,3 +1,5 @@
+# Elias Dandouch
+# Summer SURF 2025 RESEARCH (06/26/25)
 from ophyd import EpicsSignal, Device, Component as Cpt
 from bluesky import RunEngine
 from bluesky.plan_stubs import mv, sleep
@@ -7,6 +9,7 @@ import datetime
 import csv
 
 # Device Definitions
+# More can be found here: https://sfeister.github.io/sidekick-epics-docs/model1/model1-process-variables/
 class Shutter(Device):
     enable = Cpt(EpicsSignal, "SHUTTER:enable")
     duration = Cpt(EpicsSignal, "SHUTTER:DURation")
@@ -26,9 +29,8 @@ RE = RunEngine({})
 bec = BestEffortCallback()
 RE.subscribe(bec)  # Live table + plotting
 
-# 1. LED + Shutter Test Plan
+# LED + Shutter Test Plan
 def leds_shutter_test_plan():
-    """Test turning LED on/off and opening/closing shutter."""
     print("Starting LED + Shutter test...")
 
     # Turn on LED channel 0
@@ -49,7 +51,6 @@ def leds_shutter_test_plan():
 
 # LED Brightness Scan (Regular Bluesky scan) - I'm keeping this here just in-case we may need it later down the road in this test plan
 def led_brightness_scan():
-    """Sweep LED brightness and record values."""
     print("Running LED brightness scan...")
 
     # Metadata for record-keeping
@@ -66,16 +67,6 @@ def led_brightness_scan():
 
 # LED Action List Scan (List/Action Scan)
 def led_action_scan(filename="led_action_list.csv"):
-    """
-    Execute a sequence of LED + shutter actions loaded from a CSV file.
-
-    Expected CSV format (header required):
-        brightness,duration,shutter
-        10,0.5,1
-        128,1.0,1
-        255,0.2,0
-        64,1.5,1
-    """
     print(f"Running LED Action Scan from predefined CSV we made: {filename}")
 
     try:
